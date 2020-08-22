@@ -19,20 +19,20 @@ jobs:
   - template: azure-template-variables.yml
 
   steps:
-  - bash: echo "variables - py_module ${{variables.py_module}} image_name ${{variables.image_name}} registry_user ${{variables.registry_user}} "
-  - bash: echo "parameters - docker_task ${{parameters.docker_task}} os ${{parameters.os}}"
+    #
+  - script: echo " Image name: ${{ variables.image_name }} Docker_task: ${{ parameters.docker_task }} "
+      displayName: "Setup"
+  #
+  - task: DockerInstaller@0
+      displayName: "Docker Installer"
+      inputs:
+          dockerVersion: 17.09.0-ce
+          releaseType: stable
   #
   - checkout: self
     submodules: true
   #
-  - task: DockerInstaller@0
-    displayName: "Docker Installer"
-    inputs:
-        #dockerVersion: 17.09.0-ce
-        dockerVersion: 19.03.9
-        releaseType: stable
-  #
-  - ${{ if startsWith(parameters.docker_task, 'build_and_test') }}:
+  - ${{ if startsWith(parameters.docker_task, 'build and test') }}:
     - bash: |
         set -e
         pwd
@@ -50,9 +50,10 @@ jobs:
                     --build-arg VERSION=$VER \
                     --tag ${REGISTRY_USER}/${IMAGE_NAME}:${TAG_TEST} \
                     --file ./Dockerfile.${TAG_BASE} .
+
         #
         #
-        # docker rm -f ${IMAGE_NAME}
+        docker rm -f ${IMAGE_NAME}
         echo "Begin running unittests on image ${IMAGE_NAME}"
         docker run --name ${IMAGE_NAME} ${REGISTRY_USER}/${IMAGE_NAME}:${TAG_TEST} tox >& /dev/null || {
             echo "Unittests failing for ${IMAGE_NAME} ---- return code: $?"
