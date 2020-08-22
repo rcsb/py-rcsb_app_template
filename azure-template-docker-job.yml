@@ -19,4 +19,4 @@ jobs:
   - template: azure-template-variables.yml
 
   steps:
-  - bash: echo "HELLO"
+  - bash: echo "py_module ${{variables.py_module}} image_name ${{variables.image_name}} registry_user ${{variables.registry_user}} "
