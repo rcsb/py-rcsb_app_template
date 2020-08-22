@@ -1,0 +1,8 @@
+# File: azure-template-variables.yml
+# Date: 22-Aug-2020
+#
+#
+variables:
+  py_module: 'template'
+  image_name: 'py-rcsb_app_template'
+  registry_user: 'west001'

@@ -1,0 +1,5 @@
+# RCSB_APP_TEMPLATE HISTORY
+11-Aug-2020  - V0.10 Created module
+22-Aug-2020  - V0.11 Initial pipeline implementation
+
+
