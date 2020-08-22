@@ -40,11 +40,11 @@ jobs:
   #- template: azure-template-publish-job.yml
   #  parameters: {tox: 'py38', python: '3.8', os: 'macos'}
   #
-  - template: azure-template-publish-job.yml
+  - template: azure/azure-template-publish-job.yml
     parameters: {tox: 'py38', python: '3.8', os: 'linux'}
   #
-  - template: azure-template-docker-job.yml
+  - template: azure/azure-template-docker-job.yml
     parameters: {os: 'linux', docker_task: 'build_and_test'}
-  - template: azure-template-docker-publish-job.yml
+  - template: azure/azure-template-docker-publish-job.yml
     parameters: {os: 'linux', docker_task: 'build_and_publish'}
 #
