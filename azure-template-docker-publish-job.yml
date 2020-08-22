@@ -57,6 +57,8 @@ jobs:
         PY_MODULE=${PY_MODULE:-"${{ variables.py_module }}"}
         #
         VER=`grep '__version__' rcsb/app/${PY_MODULE}/__init__.py | awk '{print $3}' | tr -d '"'`
+        echo "##vso[task.setvariable variable=VER]$VER"
+        echo "##vso[task.setvariable variable=TAG_BASE]$TAG_BASE"
         #
         #docker rmi -f ${IMAGE_NAME}
         #docker rmi -f ${IMAGE_NAME}:${TAG_TEST}
@@ -73,12 +75,17 @@ jobs:
         docker image ls
       displayName: "Production build script"
     - bash: echo ${{ format('{0}/{1}', variables['registry_user'], variables['image_name'] ) }}
+    - bash: echo $(VER)
+    - bash: echo $(TAG_BASE)
     - task: Docker@2
       displayName: "Push to DockerHub"
       inputs:
           command: push
           containerRegistry: dockerhubtest
           repository: ${{ format('{0}/{1}', variables['registry_user'], variables['image_name'] ) }}
+          tags: |
+            $(VER)
+            $(TAG_BASE)
     #
     - bash: echo "DONE with PUSH"
     #
