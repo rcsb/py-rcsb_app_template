@@ -21,3 +21,10 @@ jobs:
   steps:
   - bash: echo "variables - py_module ${{variables.py_module}} image_name ${{variables.image_name}} registry_user ${{variables.registry_user}} "
   - bash: echo "parameters - docker_task ${{parameters.docker_task}} os ${{parameters.os}}"
+  #
+  - task: DockerInstaller@0
+    displayName: "Docker Installer"
+    inputs:
+        dockerVersion: 17.09.0-ce
+        releaseType: stable
+  #
