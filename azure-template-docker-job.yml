@@ -6,7 +6,7 @@
 ##
 parameters:
   os: ""
-  task: ""
+  docker_task: ""
 
 jobs:
 - job: ${{ format('build_docker_{0}_{1}', parameters.tox, parameters.os) }}
@@ -19,8 +19,12 @@ jobs:
     - template: azure-template-variables.yml
 
   steps:
+    #
+    - script: echo " Image name: ${{ variables.image_name }} Docker_task: ${{ parameters.docker_task }}""
+        displayName: "Setup"
+    #
     - task: DockerInstaller@0
-        displayName: Docker Installer
+        displayName: "Docker Installer"
         inputs:
             dockerVersion: 17.09.0-ce
             releaseType: stable
@@ -28,7 +32,7 @@ jobs:
     - checkout: self
       submodules: true
     #
-    - ${{ if startsWith(parameters.task, 'build and test') }}:
+    - ${{ if startsWith(parameters.docker_task, 'build and test') }}:
       - bash: |
           set -e
           pwd
