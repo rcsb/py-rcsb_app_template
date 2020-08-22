@@ -16,7 +16,7 @@ jobs:
       vmImage: 'ubuntu-18.04'
 
   dependsOn:
-  - ${{ format('build_docker_{0}_{1}', parameters.docker_task, parameters.os) }}
+  - ${{ format('build_docker_{0}_{1}', 'build_and_test', parameters.os) }}
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
 
   variables:
