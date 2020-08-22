@@ -8,9 +8,6 @@ parameters:
   os: ""
   docker_task: ""
 
-variables:
-- template: azure-template-variables.yml
-
 jobs:
 - job: ${{ format('build_docker_{0}_{1}', parameters.docker_task, parameters.os) }}
   timeoutInMinutes: 0
@@ -18,3 +15,8 @@ jobs:
     ${{ if eq(parameters.os, 'linux') }}:
       vmImage: 'ubuntu-18.04'
 
+  variables:
+  - template: azure-template-variables.yml
+
+  steps:
+  - bash: echo "HELLO"
