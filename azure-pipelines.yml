@@ -5,7 +5,7 @@
 #       9-Jul-2019 jdw add publish jobs
 #      21-Jul-2019 jdw update to Py38
 #      10-Mar-2020 jdw py38 only
-#      17-Aug-2020 jdw container workflow
+#      22-Aug-2020 jdw add container workflow
 #
 name: $(BuildDefinitionName)_$(Date:yyyyMMdd)$(Rev:.rr)
 
@@ -29,19 +29,19 @@ jobs:
   - template: azure-template-tox-job.yml
     parameters: {tox: 'lint_pylint', python: '3.8', os: 'linux'}
   #
-  #- template: azure-template-tox-job.yml
-  #  parameters: {tox: 'test_coverage', python: '3.8', os: 'linux'}
-  #
   - template: azure-template-tox-job.yml
-    parameters: {tox: 'py38', python: '3.8', os: 'linux'}
+    parameters: {tox: 'test_coverage', python: '3.8', os: 'linux'}
+  #
+  #- template: azure-template-tox-job.yml
+  #  parameters: {tox: 'py38', python: '3.8', os: 'linux'}
   #
   #- template: azure-template-tox-job.yml
   #  parameters: {tox: 'py38', python: '3.8', os: 'macos'}
   #- template: azure-template-publish-job.yml
   #  parameters: {tox: 'py38', python: '3.8', os: 'macos'}
   #
-  #- template: azure-template-publish-job.yml
-  #  parameters: {tox: 'py38', python: '3.8', os: 'linux'}
+  - template: azure-template-publish-job.yml
+    parameters: {tox: 'test_coverage', python: '3.8', os: 'linux'}
   #
   - template: azure-template-docker-job.yml
     parameters: {os: 'linux', docker_task: 'build_and_test'}

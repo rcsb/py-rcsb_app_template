@@ -74,9 +74,8 @@ jobs:
         #
         docker image ls
       displayName: "Production build script"
-    - bash: echo ${{ format('{0}/{1}', variables['registry_user'], variables['image_name'] ) }}
-    - bash: echo $(VER)
-    - bash: echo $(TAG_BASE)
+    - bash: echo "Image ${{ format('{0}/{1}', variables['registry_user'], variables['image_name'] ) }} version $(VER) tag_base $(TAG_BASE)"
+    #
     - task: Docker@2
       displayName: "Push to DockerHub"
       inputs:
