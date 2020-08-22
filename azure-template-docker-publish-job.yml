@@ -42,12 +42,7 @@ jobs:
         command: login
         containerRegistry: dockerhubtest
   #
-  #
-
   - ${{ if startsWith(parameters.docker_task, 'publish') }}:
-    #
-
-    #
     - bash: |
         set -e
         pwd
