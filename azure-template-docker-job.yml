@@ -9,7 +9,7 @@ parameters:
   docker_task: ""
 
 jobs:
-- job: ${{ format('build_docker_{0}_{1}', parameters.tox, parameters.os) }}
+- job: ${{ format('build_docker_{0}_{1}', parameters.docker_task, parameters.os) }}
   timeoutInMinutes: 0
   pool:
     ${{ if eq(parameters.os, 'linux') }}:
