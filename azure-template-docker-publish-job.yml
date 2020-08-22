@@ -40,7 +40,7 @@ jobs:
     displayName: "Login to DockerHub"
     inputs:
         command: login
-        containerRegistry: dockerhubtest
+        containerRegistry: $(dockerhubtest)
   #
   - ${{ if startsWith(parameters.docker_task, 'publish') }}:
     - bash: |
