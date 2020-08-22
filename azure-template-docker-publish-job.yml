@@ -58,4 +58,17 @@ jobs:
         #
         VER=`grep '__version__' rcsb/app/${PY_MODULE}/__init__.py | awk '{print $3}' | tr -d '"'`
         #
+        #docker rmi -f ${IMAGE_NAME}
+        #docker rmi -f ${IMAGE_NAME}:${TAG_TEST}
+        #docker rm -f ${IMAGE_NAME}
+        #
+        docker image ls
+        docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
+                    --build-arg VCS_REF=`git rev-parse --short HEAD` \
+                    --build-arg VERSION=$VER \
+                    --tag ${REGISTRY_USER}/${IMAGE_NAME}:${TAG_BASE} \
+                    --tag ${REGISTRY_USER}/${IMAGE_NAME}:${VER} \
+                    --file ./Dockerfile  .
+        #
+        docker image ls
       displayName: "Production build script"
