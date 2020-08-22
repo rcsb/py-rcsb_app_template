@@ -19,4 +19,5 @@ jobs:
   - template: azure-template-variables.yml
 
   steps:
-  - bash: echo "py_module ${{variables.py_module}} image_name ${{variables.image_name}} registry_user ${{variables.registry_user}} "
+  - bash: echo "variables - py_module ${{variables.py_module}} image_name ${{variables.image_name}} registry_user ${{variables.registry_user}} "
+  - bash: echo "parameters - docker_task ${{parameters.docker_task}} os ${{parameters.os}}"
