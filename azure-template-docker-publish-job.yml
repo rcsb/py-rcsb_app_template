@@ -72,10 +72,10 @@ jobs:
         docker image ls
     #
     - task: Docker@2
-        displayName: Push
-        inputs:
-            command: push
-            containerRegistry: dockerhubtest
-            repository: ${{ variables.image_name }}
-            # tags: latest
+      displayName: Push
+      inputs:
+        command: push
+        containerRegistry: dockerhubtest
+        repository: ${{ variables.image_name }}
+        # tags: latest
     displayName: "Build and test image"
