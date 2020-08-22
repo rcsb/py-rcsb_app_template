@@ -72,13 +72,13 @@ jobs:
         #
         docker image ls
       displayName: "Production build script"
-    - bash: echo ${{format('{0}/{1}', ${{ variables.registry_user }}, ${{ variables.image_name }}) }}
+    - bash: echo ${{ format('{0}/{1}', variables['registry_user'], variables['image_name'] ) }}
     - task: Docker@2
       displayName: "Push to DockerHub"
       inputs:
           command: push
           containerRegistry: dockerhubtest
-          repository: "format('{0}/{1}', ${{ variables.registry_user }}, ${{ variables.image_name }})"
+          repository: ${{ format('{0}/{1}', variables['registry_user'], variables['image_name'] ) }}
     #
     - bash: echo "DONE with PUSH"
     #
