@@ -77,7 +77,7 @@ jobs:
       inputs:
           command: push
           containerRegistry: dockerhubtest
-          repository: ${{ format('{0}/{1}', ${{ variables.registry_user }}, ${{ variables.registry_user }}) }}
+          repository: format('{0}/{1}', ${{ variables.registry_user }}, ${{ variables.image_name }})
     #
     - bash: echo "DONE with PUSH"
     #
