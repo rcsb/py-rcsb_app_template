@@ -40,6 +40,6 @@ jobs:
     displayName: "Login to DockerHub"
     inputs:
         command: login
-        containerRegistry: $(dockerhubtest)
+        containerRegistry: dockerhubtest
   #
   - bash: echo "DONE"
