@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 #
+# File: DOCKER_BUILD.sh
+# Date: 22-Aug-2020 jdw
+#
 REGISTRY_USER=${REGISTRY_USER}
 #
 IMAGE_NAME=${IMAGE_NAME:-"py-rcsb_app_template"}
