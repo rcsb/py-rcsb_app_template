@@ -42,4 +42,19 @@ jobs:
         command: login
         containerRegistry: dockerhubtest
   #
-  - bash: echo "DONE"
+  - bash: echo "DONE with LOGIN"
+  #
+  - ${{ if startsWith(parameters.docker_task, 'build_and_publish') }}:
+    - bash: |
+        set -e
+        pwd
+        REGISTRY_USER=${{ variables.registry_user }}
+        #
+        IMAGE_NAME=${IMAGE_NAME:-"${{ variables.image_name }}"}
+        TAG_TEST=${TAG_TEST:-"unittest"}
+        TAG_BASE=${TAG_BASE:-"test"}
+        PY_MODULE=${PY_MODULE:-"${{ variables.py_module }}"}
+        #
+        VER=`grep '__version__' rcsb/app/${PY_MODULE}/__init__.py | awk '{print $3}' | tr -d '"'`
+        #
+      displayName: "Production build script"

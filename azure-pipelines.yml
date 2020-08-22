@@ -46,5 +46,5 @@ jobs:
   - template: azure-template-docker-job.yml
     parameters: {os: 'linux', docker_task: 'build_and_test'}
   - template: azure-template-docker-publish-job.yml
-    parameters: {os: 'linux', docker_task: 'publish'}
+    parameters: {os: 'linux', docker_task: 'build_and_publish'}
 #
