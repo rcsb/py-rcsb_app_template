@@ -12,6 +12,9 @@ __license__ = "Apache 2.0"
 import logging
 from fastapi import APIRouter
 
+from . import ConfigProvider
+from rcsb.utils.io.ProcessStatusUtil import ProcessStatusUtil
+
 logger = logging.getLogger(__name__)
 
 router = APIRouter()
@@ -19,11 +22,16 @@ router = APIRouter()
 
 @router.get("/status", tags=["status"])
 def serverStatus():
-    return {"msg": "Status is nominal!"}
+    cp = ConfigProvider.ConfigProvider()
+    cD = cp.getConfig()
+    psU = ProcessStatusUtil()
+    psD = psU.getInfo()
+    return {"msg": "Status is nominal!", "versionNumber": cD["versionNumber"], "status": psD}
 
 
 @router.get("/", tags=["status"])
 def rootServerStatus():
+
     return {"msg": "Service is up!"}
 
 

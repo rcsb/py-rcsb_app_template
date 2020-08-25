@@ -3,6 +3,8 @@
 # File: DOCKER_BUILD.sh
 # Date: 22-Aug-2020 jdw
 #
+# REGISTRY_USER="githubuser" ./deploy/DOCKER_BUILD.sh
+#
 REGISTRY_USER=${REGISTRY_USER}
 #
 IMAGE_NAME=${IMAGE_NAME:-"py-rcsb_app_template"}
@@ -19,20 +21,23 @@ docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
              --file ./Dockerfile.${TAG_BASE} .
 
 #
+docker image ls
+docker container ls
+#
+rm -f ${IMAGE_NAME}-docker-run-tox.log
 docker rm -f ${IMAGE_NAME}
-echo "Begin running unittests on image ${IMAGE_NAME}"
-docker run --name ${IMAGE_NAME} ${REGISTRY_USER}/${IMAGE_NAME}:${TAG_TEST} tox >& /dev/null || {
-    echo "Unittests failing for ${IMAGE_NAME} ---- return code: $?"
-    docker logs ${IMAGE_NAME} >& ${IMAGE_NAME}-unittest.log
+#
+echo "++Begin running unittests on image ${REGISTRY_USER}/${IMAGE_NAME}:${TAG_TEST}"
+docker run --rm --name ${IMAGE_NAME} ${REGISTRY_USER}/${IMAGE_NAME}:${TAG_TEST} tox >& ${IMAGE_NAME}-docker-run-tox.log || {
+    echo "++Unittests failing for ${IMAGE_NAME} ---- return code: $?"
     docker rmi -f ${IMAGE_NAME}
-    docker rm -f ${IMAGE_NAME}
+    docker rm -f ${REGISTRY_USER}/${IMAGE_NAME}:${TAG_TEST}
     exit 1
 }
-echo "Unit Tests succeed for ${IMAGE_NAME} ---- return code: $?"
+echo "++Unit Tests succeed for ${IMAGE_NAME} ---- return code: $?"
 #
-docker rmi -f ${IMAGE_NAME}
-docker rmi -f ${IMAGE_NAME}:${TAG_TEST}
-docker rm -f ${IMAGE_NAME}
+docker image ls
+docker rmi -f ${REGISTRY_USER}/${IMAGE_NAME}:${TAG_TEST}
 #
 docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
              --build-arg VCS_REF=`git rev-parse --short HEAD` \
@@ -43,4 +48,4 @@ docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
 #
 docker image ls
 #
-#docker push  ${REGISTRY_USER}/${IMAGE_NAME}
+# docker push  ${REGISTRY_USER}/${IMAGE_NAME}

@@ -40,7 +40,7 @@ setup(
     ),
     entry_points={"console_scripts": []},
     #
-    install_requires=["gunicorn >= 20.0.4", "uvicorn >= 0.11.5", "fastapi[all] >= 0.55.1", "aiofiles >= 0.5.0", "uvicorn >= 0.11.5", "pydantic >= 1.4", "rcsb.utils.io >= 0.69"],
+    install_requires=["gunicorn >= 20.0.4", "uvicorn >= 0.11.5", "fastapi[all] >= 0.55.1", "aiofiles >= 0.5.0", "uvicorn >= 0.11.5", "pydantic >= 1.4", "rcsb.utils.io >= 0.76"],
     packages=find_packages(exclude=["rcsb.app.tests-*", "tests.*"]),
     package_data={
         # If any package contains *.md or *.rst ...  files, include them:

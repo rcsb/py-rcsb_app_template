@@ -1,4 +1,10 @@
 #! /usr/bin/env sh
+#
+# File: launch.sh
+# Date: 22-Aug-2020
+#
+# Docker CMD main entry point script.
+##
 set -e
 
 # App module template covention is - rcsb.app.<service_name>.main:app

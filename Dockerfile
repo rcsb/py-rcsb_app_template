@@ -35,15 +35,13 @@ RUN set -eux \
 COPY ./rcsb /app/rcsb
 COPY ./deploy/gunicorn_conf.py /app/gunicorn_conf.py
 #
-# COPY ./tox.ini /app/tox.ini
-# COPY ./setup.py /app/setup.py
-# COPY ./setup.cfg /app/setup.cfg
-# COPY ./pylintrc /app/pylintrc
-
 COPY ./deploy/launch.sh /app/launch.sh
 RUN chmod +x /app/launch.sh
-COPY ./entryPoint.sh /app/entryPoint.sh
-RUN chmod +x entryPoint.sh
+COPY ./deploy/entryPoint.sh /app/entryPoint.sh
+RUN chmod +x /app/entryPoint.sh
+
+COPY ./rcsb/app/tests-template/test-data/config/example-config.json /app/CACHE/config/example-config.json
+COPY ./rcsb/app/tests-template/test-data/config/example-data.cif    /app/CACHE/config/example-data.cif
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1

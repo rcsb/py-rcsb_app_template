@@ -31,8 +31,6 @@ RUN set -eux \
     && pip install --upgrade pip \
     && pip install  --no-cache-dir --upgrade pip setuptools wheel tox \
     && pip install  --no-cache-dir -r /app/requirements.txt
-#&& rm -rf /root/.cache/pip \
-#&& apt-get remove --auto-remove -y build-essential cmake && apt-get -y autoremove
 
 COPY ./rcsb /app/rcsb
 # Testing files
@@ -45,14 +43,16 @@ COPY ./deploy/launch.sh /app/launch.sh
 RUN chmod +x /app/launch.sh
 
 COPY ./deploy/gunicorn_conf.py /app/gunicorn_conf.py
+#
+COPY ./rcsb/app/tests-template/test-data/config/example-config.json /app/CACHE/config/example-config.json
+COPY ./rcsb/app/tests-template/test-data/config/example-data.cif    /app/CACHE/config/example-data.cif
 
 # ENV PYTHONPATH=/rcsb
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
+ENV CACHE_PATH /app/CACHE
 
 EXPOSE 80
 
-# Launch the service
-# CMD ["/app/launch.sh"]
-#CMD ["sleep", "infinity"]
+# Run test suite
 CMD ["tox"]

@@ -14,6 +14,7 @@ import logging
 
 from fastapi import FastAPI
 
+from . import ConfigProvider
 from . import LogFilterUtils
 from . import serverStatus
 
@@ -38,6 +39,9 @@ app = FastAPI()
 @app.on_event("startup")
 async def startupEvent():
     logger.info("Startup - running application startup placeholder method")
+    cp = ConfigProvider.ConfigProvider()
+    _ = cp.getConfig()
+    _ = cp.getData()
     #
 
 

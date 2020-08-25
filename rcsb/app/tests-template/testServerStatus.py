@@ -21,6 +21,7 @@ __license__ = "Apache 2.0"
 import logging
 import os
 import platform
+import pprint
 import resource
 import time
 import unittest
@@ -42,7 +43,12 @@ class ServerStatusTests(unittest.TestCase):
         self.__testFlagFull = False
         self.__workPath = os.path.join(HERE, "test-output")
         self.__dataPath = os.path.join(HERE, "test-data")
-        self.__cachePath = os.path.join(HERE, "test-output", "CACHE")
+        logger.info("os.environ %r", os.environ)
+        if not os.environ.get("CACHE_PATH", None):
+            os.environ["CACHE_PATH"] = self.__dataPath
+        else:
+            logger.info("Using CACHE_PATH setting from environment %r", os.environ.get("CACHE_PATH"))
+
         self.__startTime = time.time()
         #
         logger.debug("Running tests on version %s", __version__)
@@ -64,6 +70,22 @@ class ServerStatusTests(unittest.TestCase):
                 logger.info("Status %r response %r", response.status_code, response.json())
                 self.assertTrue(response.status_code == 200)
                 self.assertTrue(response.json() == {"msg": "Service is up!"})
+        except Exception as e:
+            logger.exception("Failing with %s", str(e))
+            self.fail()
+
+    def testProcessStatus(self):
+        """ Get process status ().
+        """
+        try:
+            with TestClient(app) as client:
+                response = client.get("/status")
+                logger.debug("Status %r response %r", response.status_code, response.json())
+                self.assertTrue(response.status_code == 200)
+                rD = response.json()
+                self.assertGreaterEqual(rD["versionNumber"], 0.3)
+                # self.assertTrue(response.json() == {"msg": "Service is up!"})
+                logger.info("Process status: %s", pprint.pformat(rD, indent=3))
         except Exception as e:
             logger.exception("Failing with %s", str(e))
             self.fail()

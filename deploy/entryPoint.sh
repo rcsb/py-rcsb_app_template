@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
+#
+# File: entryPoint.sh
+# Date: 22-Aug-2020
+#
+# Docker qualified ENTRYPOINT script.
+##
 set -eo pipefail
 
 
