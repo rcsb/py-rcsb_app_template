@@ -51,12 +51,13 @@ jobs:
                     --tag ${REGISTRY_USER}/${IMAGE_NAME}:${TAG_TEST} \
                     --file ./Dockerfile.${TAG_BASE} .
         #
-        #
+        docker image ls
+        docker container ls
         # docker rm -f ${IMAGE_NAME}
         echo "Begin running unittests on image ${IMAGE_NAME}"
         docker run --name ${IMAGE_NAME} ${REGISTRY_USER}/${IMAGE_NAME}:${TAG_TEST} tox >& /dev/null || {
             echo "Unittests failing for ${IMAGE_NAME} ---- return code: $?"
-            docker logs ${IMAGE_NAME} >& ${IMAGE_NAME}-unittest.log
+            docker logs ${IMAGE_NAME}
             docker rmi -f ${IMAGE_NAME}
             docker rm -f ${IMAGE_NAME}
             exit 1

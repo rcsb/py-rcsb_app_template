@@ -23,7 +23,7 @@ docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
 #
 docker image ls
 docker container ls
-#
+# -
 rm -f ${IMAGE_NAME}-docker-run-tox.log
 docker rm -f ${IMAGE_NAME}
 #
