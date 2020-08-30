@@ -29,8 +29,7 @@ logger = logging.getLogger(__name__)
 
 
 class ConfigProvider(SingletonClass):
-    """ Accessors for configuration details.
-    """
+    """Accessors for configuration details."""
 
     def __init__(self):
         self.__startTime = time.time()
@@ -130,8 +129,7 @@ class ConfigProvider(SingletonClass):
         return len(self.__configD) >= 2
 
     def __makeBootstrapDepictConfig(self, cachePath, fileName="example-config.json", storeConfig=True, configData=None):
-        """ Create example configuration bootstrap file
-        """
+        """Create example configuration bootstrap file"""
         configD = {}
         try:
             cD = configData if configData else {}
