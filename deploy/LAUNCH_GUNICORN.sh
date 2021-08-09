@@ -4,7 +4,7 @@
 #
 # Run as:
 #
-#     nohup ./scripts/LAUNCH_GUNICORN.sh >& LOGTODAY
+#     nohup ./deploy/LAUNCH_GUNICORN.sh >& LOGTODAY
 ##
 HERE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 TOPDIR="$(dirname "$HERE")"
@@ -18,7 +18,7 @@ ADDR=${THISIP}:${THISPORT}
 #
 cd ${TOPDIR}
 gunicorn \
-rcsb.app.chem.main:app \
+rcsb.app.template.main:app \
     --timeout 300 \
     --chdir ${TOPDIR} \
     --bind ${ADDR} \

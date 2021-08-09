@@ -1,3 +1,9 @@
+##
+# File: gunicorn_conf.py
+# Date: 6-Aug-2021 jdw
+#
+#  gunicorn configuration used in the docker build.
+##
 import json
 import multiprocessing
 import os
@@ -10,7 +16,7 @@ if max_workers_str:
 web_concurrency_str = os.getenv("WEB_CONCURRENCY", None)
 
 host = os.getenv("HOST", "0.0.0.0")
-port = os.getenv("PORT", "80")
+port = os.getenv("PORT", "8000")
 bind_env = os.getenv("BIND", None)
 use_loglevel = os.getenv("LOG_LEVEL", "info")
 if bind_env:

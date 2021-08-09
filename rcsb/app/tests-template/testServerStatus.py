@@ -13,7 +13,7 @@ Tests for server status API.
 
 """
 
-__docformat__ = "restructuredtext en"
+__docformat__ = "google en"
 __author__ = "John Westbrook"
 __email__ = "jwest@rcsb.rutgers.edu"
 __license__ = "Apache 2.0"
@@ -62,8 +62,7 @@ class ServerStatusTests(unittest.TestCase):
         logger.info("Completed %s at %s (%.4f seconds)", self.id(), time.strftime("%Y %m %d %H:%M:%S", time.localtime()), endTime - self.__startTime)
 
     def testRootStatus(self):
-        """ Get root status ().
-        """
+        """Get root status ()."""
         try:
             with TestClient(app) as client:
                 response = client.get("/")
@@ -75,8 +74,7 @@ class ServerStatusTests(unittest.TestCase):
             self.fail()
 
     def testProcessStatus(self):
-        """ Get process status ().
-        """
+        """Get process status ()."""
         try:
             with TestClient(app) as client:
                 response = client.get("/status")
@@ -91,8 +89,7 @@ class ServerStatusTests(unittest.TestCase):
             self.fail()
 
     def testHealthCheck(self):
-        """ Get health check.
-        """
+        """Get health check."""
         try:
             with TestClient(app) as client:
                 response = client.get("/healthcheck")

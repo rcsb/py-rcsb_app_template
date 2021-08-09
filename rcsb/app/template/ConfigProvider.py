@@ -10,7 +10,7 @@
 Accessors for configuration details.
 """
 
-__docformat__ = "restructuredtext en"
+__docformat__ = "google en"
 __author__ = "John Westbrook"
 __email__ = "john.westbrook@rcsb.org"
 __license__ = "Apache 2.0"
@@ -34,7 +34,7 @@ class ConfigProvider(SingletonClass):
     def __init__(self):
         self.__startTime = time.time()
         # ---
-        self.__cachePath = os.environ.get("CACHE_PATH", ".")
+        self.__cachePath = os.environ.get("CACHE_PATH", os.path.abspath("./CACHE"))
         logger.info("Using CACHE_PATH setting %r", self.__cachePath)
         self.__mU = MarshalUtil(workPath=self.__cachePath)
         self.__configD = None
