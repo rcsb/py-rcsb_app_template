@@ -58,8 +58,9 @@ COPY ./deploy/gunicorn_conf.py /app/gunicorn_conf.py
 #
 COPY ./rcsb/app/tests-template/test-data/config/example-config.json /app/CACHE/config/example-config.json
 COPY ./rcsb/app/tests-template/test-data/config/example-data.cif    /app/CACHE/config/example-data.cif
-
-EXPOSE 8000
+RUN chown ubuntu /app/CACHE
+RUN chown ubuntu /app
+# EXPOSE 8000
 USER ubuntu
 
 # ENV PYTHONPATH=/rcsb
