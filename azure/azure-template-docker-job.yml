@@ -48,6 +48,8 @@ jobs:
               docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
                           --build-arg VCS_REF=`git rev-parse --short HEAD` \
                           --build-arg VERSION=$VER \
+                          --build-arg USER_ID=$(id -u) \
+                          --build-arg GROUP_ID=$(id -g) \
                           --tag ${REGISTRY_USER}/${IMAGE_NAME}:${TAG_TEST} \
                           --file ./Dockerfile.${TAG_TEST} .
               #
