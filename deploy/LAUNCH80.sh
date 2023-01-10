@@ -18,4 +18,4 @@ THISIP=0.0.0.0
 THISPORT=80
 #
 cd ${TOPDIR}
-python3.8 -m uvicorn --workers 2 --host ${THISIP} --port ${THISPORT} --reload --forwarded-allow-ips ${THISIP} rcsb.app.template.main:app
+python3.9 -m uvicorn --workers 2 --host ${THISIP} --port ${THISPORT} --reload --forwarded-allow-ips ${THISIP} rcsb.app.template.main:app
