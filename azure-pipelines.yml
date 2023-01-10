@@ -6,6 +6,7 @@
 #      21-Jul-2019 jdw update to Py38
 #      10-Mar-2020 jdw py38 only
 #      22-Aug-2020 jdw add container workflow
+#      10-Jan-2023 aae update to Py39
 #
 name: $(BuildDefinitionName)_$(Date:yyyyMMdd)$(Rev:.rr)
 
@@ -25,23 +26,23 @@ schedules:
 
 jobs:
   - template: azure/azure-template-tox-job.yml
-    parameters: {tox: 'format_pep8', python: '3.8', os: 'linux'}
+    parameters: {tox: 'format_pep8', python: '3.9', os: 'linux'}
   - template: azure/azure-template-tox-job.yml
-    parameters: {tox: 'lint_pylint', python: '3.8', os: 'linux'}
+    parameters: {tox: 'lint_pylint', python: '3.9', os: 'linux'}
   #
   - template: azure/azure-template-tox-job.yml
-    parameters: {tox: 'test_coverage', python: '3.8', os: 'linux'}
+    parameters: {tox: 'test_coverage', python: '3.9', os: 'linux'}
   #
   - template: azure/azure-template-tox-job.yml
-    parameters: {tox: 'py38', python: '3.8', os: 'linux'}
+    parameters: {tox: 'py39', python: '3.9', os: 'linux'}
   #
   #- template: azure-template-tox-job.yml
-  #  parameters: {tox: 'py38', python: '3.8', os: 'macos'}
+  #  parameters: {tox: 'py39', python: '3.9', os: 'macos'}
   #- template: azure-template-publish-job.yml
-  #  parameters: {tox: 'py38', python: '3.8', os: 'macos'}
+  #  parameters: {tox: 'py39', python: '3.9', os: 'macos'}
   #
   - template: azure/azure-template-publish-job.yml
-    parameters: {tox: 'py38', python: '3.8', os: 'linux'}
+    parameters: {tox: 'py39', python: '3.9', os: 'linux'}
   #
   - template: azure/azure-template-docker-job.yml
     parameters: {os: 'linux', docker_task: 'build_and_test'}

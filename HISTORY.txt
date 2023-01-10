@@ -4,4 +4,4 @@
 22-Aug-2020  - V0.12 Working pipeline implementation
 25-Aug-2020  - V0.13 Add example configuration, example data accessors, and process status
  9-Aug-2021  - V0.14 Separate test and unittest steps.  Run under parameterized non-root user.
-23-Dec-2022  - V0.15 Configuration changes to support tox 4
+23-Dec-2022  - V0.15 Configuration changes to support tox 4, azure pipeline to py39
